@@ -1,0 +1,96 @@
+:root {
+    --purple: #4b3048;
+    --highlight: #fff;
+}
+
+body {
+    overflow-x: hide;
+    background: var(--purple);
+    font-family: monospace;
+    color: #fff
+}
+
+#header {
+    text-align: center;
+}
+
+#commands,
+#queue {
+    height: fit-content;
+    padding: 10px 20px;
+    width: 40vw;
+}
+
+#commandHolder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#queueHolder {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+
+.queue_item {
+    background: #232322;
+    padding: 5px 20px;
+    border-radius: 20px;
+    user-select: none;
+    cursor: grab;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.queue_item img {
+    width: 24px;
+    aspect-ratio: 1;
+}
+
+.queue_item h3 {
+    margin-right: auto;
+}
+
+.command_item {
+    width: 100px;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #232322;
+    padding: 5px;
+    text-align: center;
+    border-radius: 20px;
+    user-select: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.flex_center {
+    display: flex;
+    justify-content: center;
+}
+
+.running {
+    border: 1px solid var(--highlight);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0 0 10px var(--highlight);
+    -moz-box-shadow: 0 0 10px var(--highlight);
+    box-shadow: 0 0 10px var(--highlight);
+}
+
+.hide {
+    display: none;
+}
+
+#delete_queue_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: -10px;
+}
