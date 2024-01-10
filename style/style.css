@@ -24,12 +24,12 @@ body {
 #commandHolder {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 #queueHolder {
     display: flex;
     flex-direction: column;
-    margin-bottom: 100px;
 }
 
 .queue_item {
@@ -41,11 +41,24 @@ body {
     margin-top: 20px;
     display: flex;
     align-items: center;
+    transition: transform 0.2s;
+}
+    
+.queue_item:hover, .command_item:hover, #clearQueue:hover {
+    transform: scale(1.01);
+    transition: transform 0.2s;
 }
 
-.queue_item img {
+#delete_queue_item svg {
     width: 20px;
-    aspect-ratio: 1;
+    height: 20px;
+    color: #fff;
+    transition: color 0.15s;
+}
+
+#delete_queue_item:hover svg {
+    color: #F43137;
+    transition: color 0.15s;
 }
 
 .queue_item h3 {
@@ -53,9 +66,11 @@ body {
 }
 
 .command_item {
-    width: 100px;
+    width: 15vw;
     aspect-ratio: 1;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     align-items: center;
     background: #232322;
@@ -65,6 +80,11 @@ body {
     user-select: none;
     cursor: pointer;
     margin: 10px;
+    transition: transform 0.2s;
+}
+
+.command_item img {
+    width: 3vw;
 }
 
 .flex_center {
@@ -93,4 +113,26 @@ body {
     cursor: pointer;
     padding: 10px;
     margin-right: -10px;
+    border-radius: 10px;
+}
+
+#clearQueue {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#clearQueue svg {
+    width:  25px;
+    height: 25px;
+    transition: 0.2s;
+}
+
+#clearQueue svg:hover {
+    color: #F43137;
+    transition: 0.2s;
 }
