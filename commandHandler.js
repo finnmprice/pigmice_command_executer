@@ -1,8 +1,35 @@
 commands = [
-  {name: 'AMP', iconName: "amp", id: 0},
-  {name: 'SPEAKER', iconName: "speaker", id: 1},
-  {name: 'NOTE', iconName: "note", id: 2},
-  {name: 'CLIMB', iconName: "climb", id: 3}
+    {
+        name: 'AMP',
+        iconName: "amp",
+        id: 0
+    },
+    {
+        name: 'SPEAKER',
+        iconName: "speaker",
+        id: 1,
+    },
+    {
+        name: 'NOTE',
+        iconName: "note",
+        id: 2, 
+        subCommands: [
+        {
+            name: 'NOTE FROM FLOOR',
+            iconName: 'noteFloor',
+            id: 2.1
+        },
+        {
+            name: 'NOTE FROM PLAYER',
+            iconName: 'notePlayer',
+            id: 2.2
+        }
+    ]},
+    {
+        name: 'CLIMB',
+        iconName: "climb",
+        id: 3
+    }
 ]
 
 queue = []
@@ -11,22 +38,67 @@ active = []
 
 const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
-commands.forEach((command) => {
-    commandItem = 
-   `<div class="command_item">
-        <img src="/style/icons/${command.iconName}.svg"></img>
-        <h2>{{commandName}}</h2>
-        <p class="hide" id="commandId">{{id}}</p>
-    </div>`
-    .replace('{{commandName}}', command.name)
-    .replace('{{id}}', command.id);
+generateBaseCommands();
 
-    $('#commandHolder').append(commandItem);
-});
+function generateBaseCommands() {
+    $('#commandHolder').empty();
+    commands.forEach((command) => {
+        commandItem = 
+    `<div class="command_item">
+            <img src="/style/icons/${command.iconName}.svg"></img>
+            <h2>{{commandName}}</h2>
+            <p class="hide" id="commandId">{{id}}</p>
+        </div>`
+        .replace('{{commandName}}', command.name)
+        .replace('{{id}}', command.id);
+
+        $('#commandHolder').append(commandItem);
+    });
+}
+
+function generateSubCommands(commands) {
+    $('#commandHolder').empty();
+    commands.forEach((command) => {
+        commandItem = 
+        `<div class="command_item">
+            <img src="/style/icons/${command.iconName}.svg"></img>
+            <h2>{{commandName}}</h2>
+            <p class="hide" id="commandId">{{id}}</p>
+        </div>`
+        .replace('{{commandName}}', command.name)
+        .replace('{{id}}', command.id);
+
+        $('#commandHolder').append(commandItem);
+    });
+    backButton = 
+    `<div class="command_item">
+        <img src="/style/icons/back.svg"></img>
+        <h2>back</h2></h2>
+        <p class="hide" id="commandId">back</p>
+    </div>`
+    $('#commandHolder').append(backButton);
+}
 
 $(document).on("click",".command_item", function () {
-    const cmdId = $(this).find('p').html();
-    addCommandToQueue(cmdId)
+    const cmdId = $(this).find('p').html().split('.');
+    command = commands.find(o => o.id === Number(cmdId[0]));
+    if(cmdId == 'back') {
+        generateBaseCommands();
+    }
+
+    if(!command.subCommands) {
+        addCommandToQueue(command)
+    }
+    else {
+        subCommands = command.subCommands
+        if(cmdId[1]) {
+            subcommand = command.subCommands[cmdId[1]-1]
+            addCommandToQueue(subcommand)
+            generateBaseCommands();
+            return;
+        }
+        generateSubCommands(subCommands)
+    }
 });
 
 $(document).on("click","#clearQueue", function () {
@@ -51,9 +123,8 @@ $(document).on("click","#delete_queue_item", function () {
     $(`#queue_item_${queue[0]}`).addClass('running');
 });
 
-function addCommandToQueue(cmdId) {
+function addCommandToQueue(command) {
     const id = genRanHex(24) //TODO array of existing keys to check key doesn't exist
-    let command = commands.find(o => o.id === Number(cmdId));
     queueItem = 
    `<div id="queue_item_${id}" class="queue_item ${queue.length == 0 ? 'running' : ''}">
         <h3>{{commandName}}</h3>
