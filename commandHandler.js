@@ -30,22 +30,31 @@ $(document).on("click",".command_item", function () {
 
 $(document).on("click","#delete_queue_item", function () {
     id = $(this).find('p').html();
-    console.log(`delete ${id}`)
+    $(`#queue_item_${id}`).remove();
+
+    const index = queue.indexOf(id);
+    if (index > -1) { 
+        queue.splice(index, 1); 
+    }
+
+
+    $(`#queue_item_${queue[0]}`).addClass('running');
 });
 
 function addCommandToQueue(cmdId) {
+    const id = genRanHex(24) //TODO array of existing keys to check key doesn't exist
     let command = commands.find(o => o.id === Number(cmdId));
     queueItem = 
-   `<div class="queue_item ${queue.length == 0 ? 'running' : ''}">
+   `<div id="queue_item_${id}" class="queue_item ${queue.length == 0 ? 'running' : ''}">
         <h3>{{commandName}}</h3>
         <div id="delete_queue_item">
-            <img src="/style/img/x.svg" class="icon24"></img>
+            <img src="/style/icons/trash.svg"></img>
             <p class="hide">{{id}}</p>
         </div>
     </div>`
     .replace('{{commandName}}', command.name)
-    .replace('{{id}}', genRanHex(24)) //TODO array of existing keys to check key doesn't exist
+    .replace('{{id}}', id)
   
-    queue.push(command);  
+    queue.push(id);  
     $('#queueHolder').append(queueItem)
 }
