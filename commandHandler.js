@@ -108,12 +108,112 @@ $(document).on("click","#clearQueue", function () {
     $(this).fadeOut(200);
 });
 
-$(document).on("click","#delete_queue_item", function () {
-    id = $(this).find('p').html();
-    $(`#queue_item_${id}`).remove();
+$(document).on("click","#moveDown", function () {
+    key = $(this).parent().parent().find('p').html();
+    const object = queue.find(obj => {
+        return obj.key === key;
+    })
 
-    const index = queue.indexOf(id);
-    if (index > -1) { 
+    index = queue.indexOf(object);
+
+    if (queue.length  - 1 <= index) {
+        console.log('stopped')
+        return;
+    }
+    else {
+        console.log(index)
+        swapArray(queue, index, index + 1);
+        updateQueueItems();
+    }
+});
+
+$(document).on("click","#play", function () {
+    key = $(this).parent().parent().find('p').html();
+    const object = queue.find(obj => {
+        return obj.key === key;
+    })
+
+    index = queue.indexOf(object);
+
+    swapArray(queue, index, 0);
+    updateQueueItems();
+
+});
+
+
+$(document).on("click","#moveUp", function () {
+    key = $(this).parent().parent().find('p').html();
+    const object = queue.find(obj => {
+        return obj.key === key;
+    })
+
+    index = queue.indexOf(object);
+
+    console.log(queue.length, index)
+    if (index <= 0) {
+        console.log('stopped')
+        return;
+    }
+    else {
+        console.log(index)
+        swapArray(queue, index, index - 1);
+        updateQueueItems();
+    }
+});
+
+function updateQueueItems() {
+    $('#queueHolder').empty();
+    queue.forEach((item) => {
+        queueItem = 
+        `<div id="queue_item_${item.key}" class="queue_item ${queue.length == 0 ? 'running' : ''}">
+            <img src="/style/icons/${item.command.iconName}.svg" style="margin-right: 20px;"></img>
+            <h3>${item.command.name}</h3>
+            <div id="reorderHolder">
+                <img id="play" style="${queue.indexOf(item) == 0 ? 'display: none' : ''}" src="/style/icons/play.svg"></img>
+                <img id="moveDown" src="/style/icons/down.svg"></img>
+                <img id="moveUp" src="/style/icons/up.svg"></img>
+            </div>
+            <div id="delete_queue_item">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="currentColor" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+            </div>
+            <p class="hide">${item.key}</p>
+        </div>`
+
+    $('#queueHolder').append(queueItem)
+
+    $('#queue_item_' + item.key).css({"border-color": item.color, 
+                "border-width":"1px", 
+                "border-style":"solid"});
+    });
+
+    if(queue.length == 0) {
+        $('#clearQueue').fadeOut(200);
+    }
+    else {
+        $('#clearQueue').fadeIn(200);
+    }
+
+    $(`#queue_item_${queue[0].key}`).addClass('running');
+}
+
+function swapArray(array, from, to) {
+    var tmp = array[from];
+    array[from] = array[to];
+    array[to] = tmp;
+}
+
+$(document).on("click","#delete_queue_item", function () {
+    key = $(this).parent().find('p').html();
+
+    $(`#queue_item_${key}`).remove();
+
+    const object = queue.find(obj => {
+        return obj.key === key;
+    })
+
+    const index = queue.indexOf(object);
+
+    if (index > -1) {
         queue.splice(index, 1); 
     }
 
@@ -121,25 +221,21 @@ $(document).on("click","#delete_queue_item", function () {
         $('#clearQueue').fadeOut(200);
     }
 
-    $(`#queue_item_${queue[0]}`).addClass('running');
+    $(`#queue_item_${queue[0].key}`).addClass('running');
 });
 
 function addCommandToQueue(command) {
-    const id = genRanHex(24) //TODO array of existing keys to check key doesn't exist
-    queueItem = 
-   `<div id="queue_item_${id}" class="queue_item ${queue.length == 0 ? 'running' : ''}">
-        <img src="/style/icons/${command.iconName}.svg" style="margin-right: 20px;"></img>
-        <h3>{{commandName}}</h3>
-        <div id="delete_queue_item">
-            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="currentColor" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
-            <p class="hide">{{id}}</p>
-        </div>
-    </div>`
-    .replace('{{commandName}}', command.name)
-    .replace('{{id}}', id)
-  
-    queue.push(id);
+    const key = genRanHex(24) //TODO array of existing keys to check key doesn't exist
+    const color = getRandomColor();  
+    queue.push({key: key, command: command, color: color});
+    updateQueueItems();
+}
 
-    $('#clearQueue').fadeIn(200);
-    $('#queueHolder').append(queueItem)
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }

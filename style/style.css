@@ -43,10 +43,16 @@ body {
     align-items: center;
     transition: transform 0.2s;
 }
-    
-.queue_item:hover, .command_item:hover, #clearQueue:hover {
+
+ .command_item:hover,
+ #clearQueue:hover {
+     transform: scale(1.05);
+     transition: transform 0.2s;
+ }
+
+.queue_item:hover {
     transform: scale(1.01);
-    transition: transform 0.2s;
+    transition: transform 0.1s;
 }
 
 #delete_queue_item svg {
@@ -134,5 +140,24 @@ body {
 
 #clearQueue svg:hover {
     color: #F43137;
+    transition: 0.2s;
+}
+
+#reorderHolder {
+    display: flex;
+    align-items: center;
+}
+
+#reorderHolder img {
+    cursor: pointer;
+    padding: 5px;
+    width: 20px;
+    aspect-ratio: 1;
+    margin-right: 10px;
+    transition: 0.2s;
+}
+
+#reorderHolder img:hover {
+    filter: brightness(60%);
     transition: 0.2s;
 }
