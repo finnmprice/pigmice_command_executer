@@ -161,3 +161,14 @@ body {
     filter: brightness(60%);
     transition: 0.2s;
 }
+
+#pigmice-logo {
+    user-select: none;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    opacity: 0.2;
+    z-index: -1;
+}
