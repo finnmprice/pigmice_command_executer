@@ -9,26 +9,31 @@ commands = [
         iconName: "speaker",
         id: 1,
     },
+    // {
+    //     name: 'NOTE',
+    //     iconName: "note",
+    //     id: 2, 
+    //     subCommands: [
+    //     {
+    //         name: 'NOTE FROM FLOOR',
+    //         iconName: 'noteFloor',
+    //         id: 2.1
+    //     },
+    //     {
+    //         name: 'NOTE FROM PLAYER',
+    //         iconName: 'notePlayer',
+    //         id: 2.2
+    //     }
+    // ]},
     {
-        name: 'NOTE',
-        iconName: "note",
-        id: 2, 
-        subCommands: [
-        {
-            name: 'NOTE FROM FLOOR',
-            iconName: 'noteFloor',
-            id: 2.1
-        },
-        {
-            name: 'NOTE FROM PLAYER',
-            iconName: 'notePlayer',
-            id: 2.2
-        }
-    ]},
+        name: 'INTAKE',
+        iconName: 'intake',
+        id: 3
+    },
     {
         name: 'CLIMB',
         iconName: "climb",
-        id: 3
+        id: 4
     }
 ]
 
@@ -166,12 +171,12 @@ function updateQueueItems() {
     queue.forEach((item) => {
         queueItem = 
         `<div id="queue_item_${item.key}" class="queue_item ${queue.length == 0 ? 'running' : ''}">
-            <img src="/style/icons/${item.command.iconName}.svg" style="margin-right: 20px;"></img>
+            <img src="/style/icons/${item.command.iconName}.svg" style="width: 30px; aspect-ratio: 1;margin-right: 20px;"></img>
             <h3>${item.command.name}</h3>
             <div id="reorderHolder">
                 <img id="play" style="${queue.indexOf(item) == 0 ? 'display: none' : ''}" src="/style/icons/play.svg"></img>
                 <img id="moveDown" src="/style/icons/down.svg"></img>
-                <img id="moveUp" src="/style/icons/up.svg"></img>
+                <img id="moveUp" style="${queue.indexOf(item) == 0 ? 'opacity: 0.1' : ''}" src="/style/icons/up.svg"></img>
             </div>
             <div id="delete_queue_item">
                 <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path opacity="1" fill="currentColor" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
@@ -217,9 +222,7 @@ $(document).on("click","#delete_queue_item", function () {
         queue.splice(index, 1); 
     }
 
-    if(queue.length == 0) {
-        $('#clearQueue').fadeOut(200);
-    }
+    updateQueueItems();
 
     $(`#queue_item_${queue[0].key}`).addClass('running');
 });
