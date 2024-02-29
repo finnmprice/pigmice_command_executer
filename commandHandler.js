@@ -32,7 +32,7 @@ commands = [
     },
     {
         name: 'CLIMB',
-        iconName: "climb",
+        iconName: "climber",
         id: 4
     }
 ]
