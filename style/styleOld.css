@@ -1,0 +1,179 @@
+:root {
+    --purple: #4b3048;
+    --highlight: #fff;
+    --button: #232322;
+}
+
+body {
+    overflow-x: hide;
+    background: var(--purple);
+    font-family: monospace;
+    color: #fff
+}
+
+#header {
+    text-align: center;
+}
+
+#commands,
+#queue {
+    height: fit-content;
+    padding: 10px 20px;
+    width: 40vw;
+}
+
+#commandHolder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#queueHolder {
+    display: flex;
+    flex-direction: column;
+}
+
+.queue_item {
+    background: var(--button);
+    padding: 5px 20px;
+    border-radius: 20px;
+    user-select: none;
+    cursor: grab;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+ .command_item:hover,
+ #clearQueue:hover {
+     transform: scale(1.05);
+     transition: transform 0.2s;
+ }
+
+.queue_item:hover {
+    transform: scale(1.01);
+    transition: transform 0.1s;
+}
+
+#delete_queue_item svg {
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    transition: color 0.15s;
+}
+
+#delete_queue_item:hover svg {
+    color: #F43137;
+    transition: color 0.15s;
+}
+
+.queue_item h3 {
+    margin-right: auto;
+}
+
+.command_item {
+    width: 15vw;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    background: var(--button);
+    padding: 5px;
+    text-align: center;
+    border-radius: 20px;
+    user-select: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s;
+}
+
+.command_item img {
+    width: 4vw;
+}
+
+.flex_center {
+    display: flex;
+    justify-content: center;
+}
+
+.running {
+    border: 1px solid var(--highlight);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0 0 10px var(--highlight);
+    -moz-box-shadow: 0 0 10px var(--highlight);
+    box-shadow: 0 0 10px var(--highlight);
+}
+
+.hide {
+    display: none;
+}
+
+#delete_queue_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: -10px;
+    border-radius: 10px;
+}
+
+#clearQueue {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#clearQueue svg {
+    width:  25px;
+    height: 25px;
+    transition: 0.2s;
+}
+
+#clearQueue svg:hover {
+    color: #F43137;
+    transition: 0.2s;
+}
+
+#reorderHolder {
+    display: flex;
+    align-items: center;
+}
+
+#reorderHolder img {
+    cursor: pointer;
+    padding: 5px;
+    width: 20px;
+    aspect-ratio: 1;
+    margin-right: 10px;
+    transition: 0.2s;
+}
+
+#reorderHolder img:hover {
+    filter: brightness(60%);
+    transition: 0.2s;
+}
+
+#pigmice-logo {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    opacity: 0.2;
+    z-index: -1;
+
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}

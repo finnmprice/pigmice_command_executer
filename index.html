@@ -6,38 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2733 Command Handler</title>
 
-    <link rel="icon" href="/style/favicon.ico" type="image/x-icon">
     <script src="/thirdParty/jquery.min.js"></script>
+    <link rel="icon" href="/style/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css" />
 
 </head>
 
 <body>
     <img id="pigmice-logo" src="/style/pigmice.svg">
-    <div id="header">
-        <h2>2733 Command Handler</h2>
-    </div>
-    <div class="flex_center">
-        <div id="queue">
-            <h2 id="header">queue</h2>
-            <div id="queueHolder">
-            </div>
+
+    <div class="buttonHeader">
+        <div id="intake-button">
+            <p>lower intake</p>
         </div>
 
-        <div id="commands">
-            <h2 id="header">commands</h2>
-            <div id="commandHolder">
-            </div>
+        <div id="climb-button">
+            <p>raise climber</p>
+        </div>
+
+        <p style="width: 150px;"></p>
+
+        <div id="speaker-button">
+            <p>shoot speaker</p>
+        </div>
+
+        <div id="amp-button">
+            <p>shoot amp</p>
         </div>
     </div>
 
-    <div id="clearQueue">
-        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
-            <path opacity="1" fill="currentColor"
-                d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-        </svg>
+    <!-- <div id="note-button">SHOOT</div> -->
+
+    <div id="update-note">
+        <p>update note</p>
     </div>
+
+    <div class="arm-center">
+        <div id="arm-holder">
+            <div id="box-holder">
+                <img style="display: none" id="note-diagram" src="./style/images/note.png">
+                <img id="box-diagram" src="./style/images/box.png">
+            </div>
+            <img id="arm-diagram" src="./style/images/arm.png">
+        </div>
+    </div>
+
+    <div class="robot-diagram">
+
+        <img id="base-diagram" src="./style/images/base.png">
+
+        <img id="intake-diagram" src="./style/images/intake.png">
+
+        <img id="c-middle-diagram" src="./style/images/c-middle.png">
+
+        <img id="c-top-diagram" src="./style/images/c-top.png">
+    </div>
+
+
+
 </body>
-<script src="/commandHandler.js"></script>
+<script src="/js/stateHandler.js"></script>
 
 </html>

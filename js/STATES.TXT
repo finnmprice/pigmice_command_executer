@@ -1,0 +1,36 @@
+CLIMBER - 
+0: lowered
+1: raised
+2: lowering
+3: raising
+
+
+ARM/BOX - 
+0: stowed
+1: speaker
+2: amp
+3: amp to speaker
+4: amp to stowed
+5: speaker to amp
+6: speaker to stow
+7: stow to amp
+8: stow to speaker
+
+
+INTAKE - 
+0: raised
+1: lowered
+2: raising
+3: lowering
+
+NOTE - 
+0: no note
+1: has a note
+
+COLORS - 
+0: gray
+1: green
+2: yellow
+3: red
+
+some of this changed and i dont feel like fixing it right now, just look at the code
