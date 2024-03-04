@@ -173,9 +173,11 @@ body {
 }
 
 #c-middle-diagram {
+    transform: translateY(0%);
     transition: transform 2s;
 }
 
 #c-top-diagram {
+    transform: translateY(0%);
     transition: transform 2s;
 }

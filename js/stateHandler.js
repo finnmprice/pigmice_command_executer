@@ -17,14 +17,14 @@ $('#climb-button').on('click', e => {
     switch(currentState.climb) {
         case 0:
             updateButton('climb', 1, 3);
-            $('#c-middle-diagram').css('transform', 'translateY(-100px)');
-            $('#c-top-diagram').css('transform', 'translateY(-200px)');
+            $('#c-middle-diagram').css('transform', 'translateY(-12%)');
+            $('#c-top-diagram').css('transform', 'translateY(-24%)');
             break;
 
         case 1:
             updateButton('climb', 0);
-            $('#c-middle-diagram').css('transform', 'translateY(0px)');
-            $('#c-top-diagram').css('transform', 'translateY(0px)');
+            $('#c-middle-diagram').css('transform', 'translateY(0%)');
+            $('#c-top-diagram').css('transform', 'translateY(0%)');
             break;
     }
 })
