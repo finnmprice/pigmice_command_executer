@@ -5,6 +5,29 @@ bclasses = {
     3: 'disabled-button'
 }
 
+buttonLabels = {
+    climb: {
+        0: 'raise climber',
+        1: 'lower climber'
+    },
+    intake: {
+        0: 'lower intake',
+        1: 'raise intake'
+    },
+    amp: {
+        0: 'shoot amp',
+        1: 'stow'
+    },
+    speaker: {
+        0: 'shoot speaker',
+        1: 'stow'
+    },
+    note: {
+        0: 'add note',
+        1: 'remove note'
+    }
+}
+
 currentState = {
     climb: 0,
     speaker: 0,
@@ -101,6 +124,7 @@ function updateButton(id, value, color) {
 
     $(e).removeClass();
     $(e).addClass(bclasses[(color != null) ? color : value])
+    $(e).html(`<p>${buttonLabels[id][value]}</p>`)
     currentState[id] = value;
 }
 
