@@ -40,14 +40,14 @@ $('#climb-button').on('click', e => {
     switch(currentState.climb) {
         case 0:
             updateButton('climb', 1, 3);
-            $('#c-middle-diagram').css('transform', 'translateY(-12%)');
-            $('#c-top-diagram').css('transform', 'translateY(-24%)');
+            updatePosition('#c-middle-diagram', 0, -12);
+            updatePosition('#c-top-diagram', 0, -24);
             break;
 
         case 1:
-            updateButton('climb', 0);
-            $('#c-middle-diagram').css('transform', 'translateY(0%)');
-            $('#c-top-diagram').css('transform', 'translateY(0%)');
+            updateButton('climb', 0);        
+            updatePosition('#c-middle-diagram', 0, 0);
+            updatePosition('#c-top-diagram', 0, 0);
             break;
     }
 })
@@ -56,12 +56,14 @@ $('#intake-button').on('click', e => {
     switch(currentState.intake) {
         case 0:
             updateButton('intake', 1, 3);
-            $('#intake-diagram').css('transform', 'rotate(0deg)');
+            updatePosition('#intake-diagram', 0);
+
             break;
 
         case 1:
             updateButton('intake', 0);
-            $('#intake-diagram').css('transform', 'rotate(88deg)');
+            updatePosition('#intake-diagram', 88);
+
             break;
     }
 })
@@ -71,8 +73,10 @@ $('#speaker-button').on('click', e => {
         case 0:
             updateButton('speaker', 1);
             updateButton('amp', 0);
-            $('#arm-holder').css('transform', 'rotate(0deg)');
-            $('#box-holder').css('transform', 'rotate(0deg)');
+
+            updatePosition('#arm-holder', 0);
+            updatePosition('#box-holder', 0);
+
             setTimeout(() => {
                 shoot();
             }, 1100);
@@ -88,8 +92,10 @@ $('#amp-button').on('click', e => {
         case 0:
             updateButton('amp', 1);
             updateButton('speaker', 0);
-            $('#arm-holder').css('transform', 'rotate(40deg)');
-            $('#box-holder').css('transform', 'rotate(-130deg)');
+
+            updatePosition('#arm-holder', 40);
+            updatePosition('#box-holder', -130);
+
             setTimeout(() => {
                 shoot();
             }, 1100);
@@ -142,8 +148,9 @@ function updateNote(value, time) {
 function stowArm() {
     updateButton('amp', 0);
     updateButton('speaker', 0);
-    $('#arm-holder').css('transform', 'rotate(-70deg)');
-    $('#box-holder').css('transform', 'rotate(120deg)');
+
+    updatePosition('#arm-holder', -70);
+    updatePosition('#box-holder', 120);
 }
 
 function shoot() {
@@ -153,5 +160,12 @@ function shoot() {
         setTimeout(e => {
             stowArm();
         }, 300)
+    }
+}
+
+function updatePosition(e, rotation, transform) {
+    $(e).css('transform', `rotate(${rotation}deg)`);
+    if(transform != undefined) {
+        $(e).css('transform', `translateY(${transform}%)`);
     }
 }
